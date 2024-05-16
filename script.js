@@ -2,15 +2,26 @@ const html = document.querySelector("html")
 const focoBt = document.querySelector(".app__card-button--foco")
 const curtoBt = document.querySelector(".app__card-button--curto")
 const longoBt = document.querySelector(".app__card-button--longo")
+const imagemContexto = document.querySelector(".app__image")
+
+// Contextos
+focoContexto = "foco"
+curtoContexto = "descanso-curto"
+longoContexto = "descanso-longo"
 
 focoBt.addEventListener("click", () => {
-    html.setAttribute("data-contexto", "foco")
+    alterarContexto(focoContexto)
 })
 
 curtoBt.addEventListener("click", () => {
-    html.setAttribute("data-contexto", "descanso-curto")
+    alterarContexto(curtoContexto)
 })
 
 longoBt.addEventListener("click", () => {
-    html.setAttribute("data-contexto", "descanso-longo")
+    alterarContexto(longoContexto)
 })
+
+function alterarContexto(contexto) {
+    html.setAttribute("data-contexto", contexto)
+    imagemContexto.setAttribute("src", `imagens/${contexto}.png`)
+}
