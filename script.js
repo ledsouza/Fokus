@@ -4,27 +4,36 @@ const curtoBt = document.querySelector(".app__card-button--curto")
 const longoBt = document.querySelector(".app__card-button--longo")
 const imagemContexto = document.querySelector(".app__image")
 const titulo = document.querySelector(".app__title")
+const botoes = document.querySelectorAll(".app__card-button")
 
 // Contextos
 focoContexto = "foco"
 curtoContexto = "descanso-curto"
 longoContexto = "descanso-longo"
 
+botaoAtivo = "active"
+
 focoBt.addEventListener("click", () => {
     alterarContexto(focoContexto)
+    focoBt.classList.add(botaoAtivo)
 })
 
 curtoBt.addEventListener("click", () => {
     alterarContexto(curtoContexto)
+    curtoBt.classList.add(botaoAtivo)
 })
 
 longoBt.addEventListener("click", () => {
     alterarContexto(longoContexto)
+    longoBt.classList.add(botaoAtivo)
 })
 
 function alterarContexto(contexto) {
     html.setAttribute("data-contexto", contexto)
     imagemContexto.setAttribute("src", `imagens/${contexto}.png`)
+    botoes.forEach(function (botao) {
+        botao.classList.remove(botaoAtivo)
+    })
     
     switch (contexto) {
         case focoContexto:
