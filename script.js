@@ -30,21 +30,25 @@ longoContexto = "descanso-longo";
 botaoAtivo = "active";
 
 focoBt.addEventListener("click", () => {
+  tempoDecorridoEmSegundos = 1500;
   alterarContexto(focoContexto);
   focoBt.classList.add(botaoAtivo);
 });
 
 curtoBt.addEventListener("click", () => {
+  tempoDecorridoEmSegundos = 300;
   alterarContexto(curtoContexto);
   curtoBt.classList.add(botaoAtivo);
 });
 
 longoBt.addEventListener("click", () => {
+  tempoDecorridoEmSegundos = 900;
   alterarContexto(longoContexto);
   longoBt.classList.add(botaoAtivo);
 });
 
 function alterarContexto(contexto) {
+  mostrarTempo();
   html.setAttribute("data-contexto", contexto);
   imagemContexto.setAttribute("src", `imagens/${contexto}.png`);
   botoes.forEach(function (botao) {
@@ -116,8 +120,12 @@ function zerar() {
 }
 
 function mostrarTempo() {
-  tempo = tempoDecorridoEmSegundos;
-  tempoNaTela.innerHTML = `${tempo}`;
+  const tempo = new Date(tempoDecorridoEmSegundos * 1000);
+  const tempoFormatado = tempo.toLocaleTimeString("pt-br", {
+    minute: "2-digit",
+    second: "2-digit",
+  });
+  tempoNaTela.innerHTML = `${tempoFormatado}`;
 }
 
 mostrarTempo();
