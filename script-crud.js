@@ -81,6 +81,8 @@ document.addEventListener("FocoFinalizado", () => {
     liTarefaSelecionada
       .querySelector(".app_button-edit")
       .setAttribute("disabled", "true");
+    tarefaSelecionada.concluida = true;
+    tarefas.atualizarTarefas();
     removerTarefaEmAndamento();
   }
 });
@@ -135,23 +137,28 @@ function criarElementoTarefa(tarefa) {
   li.append(paragraph);
   li.append(button);
 
-  li.onclick = () => {
-    document
-      .querySelectorAll(".app__section-task-list-item-active")
-      .forEach((tarefaAtiva) => {
-        tarefaAtiva.classList.remove("app__section-task-list-item-active");
-      });
+  if (tarefa.concluida) {
+    li.classList.add("app__section-task-list-item-complete");
+    button.setAttribute("disabled", "true");
+  } else {
+    li.onclick = () => {
+      document
+        .querySelectorAll(".app__section-task-list-item-active")
+        .forEach((tarefaAtiva) => {
+          tarefaAtiva.classList.remove("app__section-task-list-item-active");
+        });
 
-    if (tarefaSelecionada === tarefa) {
-      removerTarefaEmAndamento();
-      return;
-    }
+      if (tarefaSelecionada === tarefa) {
+        removerTarefaEmAndamento();
+        return;
+      }
 
-    tarefaSelecionada = tarefa;
-    liTarefaSelecionada = li;
-    paragraphTarefaEmAndamento.textContent = tarefa.descricao;
-    li.classList.add("app__section-task-list-item-active");
-  };
+      tarefaSelecionada = tarefa;
+      liTarefaSelecionada = li;
+      paragraphTarefaEmAndamento.textContent = tarefa.descricao;
+      li.classList.add("app__section-task-list-item-active");
+    };
+  }
 
   return li;
 }
