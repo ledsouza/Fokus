@@ -8,6 +8,10 @@ const btnConfirmTarefa = document.querySelector(
 const btnCancelTarefa = document.querySelector(
   ".app__form-footer__button--cancel"
 );
+const btnRemoverTarefasConcluidas = document.querySelector(
+  "#btn-remover-concluidas"
+);
+const btnRemoverTodasTarefas = document.querySelector("#btn-remover-todas");
 const paragraphTarefaEmAndamento = document.querySelector(
   ".app__section-active-task-description"
 );
@@ -27,6 +31,11 @@ const tarefasModule = function () {
     localStorage.setItem("tarefas", JSON.stringify(tarefas));
   }
 
+  function removerTarefasConcluidas() {
+    tarefas = tarefas.filter((tarefa) => !tarefa.concluida);
+    atualizarTarefas();
+  }
+
   function mostrarTarefa(tarefa) {
     const liTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(liTarefa);
@@ -42,6 +51,7 @@ const tarefasModule = function () {
     carregarTarefas,
     obterTarefas,
     atualizarTarefas,
+    removerTarefasConcluidas,
     mostrarTarefa,
     listarTarefas,
   };
@@ -85,6 +95,14 @@ document.addEventListener("FocoFinalizado", () => {
     tarefas.atualizarTarefas();
     removerTarefaEmAndamento();
   }
+});
+
+btnRemoverTarefasConcluidas.addEventListener("click", () => {
+  const seletor = ".app__section-task-list-item-complete";
+  document.querySelectorAll(seletor).forEach((tarefaConcluida) => {
+    tarefaConcluida.remove();
+  });
+  tarefas.removerTarefasConcluidas();
 });
 
 function removerTarefaEmAndamento() {
