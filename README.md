@@ -1,6 +1,6 @@
 # Pomodoro Timer para Estudos
 
-![Static Badge](https://img.shields.io/badge/Status-Finalizado-Green)
+![Static Badge](https://img.shields.io/badge/Status-Em%20Andamento-blue)
 
 ## Descrição
 
