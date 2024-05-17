@@ -80,9 +80,11 @@ function criarElementoTarefa(tarefa) {
   button.classList.add("app_button-edit");
   button.onclick = () => {
     const novaDescricao = prompt("Qual é a nova descrição da tarefa?");
-    paragraph.textContent = novaDescricao;
-    tarefa.descricao = novaDescricao;
-    tarefas.atualizarTarefas();
+    if (novaDescricao) {
+      paragraph.textContent = novaDescricao;
+      tarefa.descricao = novaDescricao;
+      tarefas.atualizarTarefas();
+    }
   };
 
   const img = document.createElement("img");
