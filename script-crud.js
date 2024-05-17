@@ -1,11 +1,15 @@
 const btnAdicionarTarefa = document.querySelector(".app__button--add-task");
 const formAdicionarTarefa = document.querySelector(".app__form-add-task");
+const textarea = document.querySelector(".app__form-textarea");
 const ulTarefas = document.querySelector(".app__section-task-list");
 const btnConfirmTarefa = document.querySelector(
   ".app__form-footer__button--confirm"
 );
 const btnCancelTarefa = document.querySelector(
   ".app__form-footer__button--cancel"
+);
+const paragraphTarefaEmAndamento = document.querySelector(
+  ".app__section-active-task-description"
 );
 
 const tarefasModule = function () {
@@ -44,6 +48,8 @@ const tarefasModule = function () {
 };
 
 const tarefas = tarefasModule();
+let tarefaSelecionada = null;
+
 document.addEventListener("DOMContentLoaded", () => {
   tarefas.carregarTarefas();
   tarefas.listarTarefas();
@@ -55,7 +61,6 @@ btnAdicionarTarefa.addEventListener("click", () => {
 
 btnConfirmTarefa.addEventListener("click", (evento) => {
   evento.preventDefault();
-  const textarea = document.querySelector(".app__form-textarea");
   const tarefa = {
     descricao: textarea.value,
   };
@@ -66,9 +71,12 @@ btnConfirmTarefa.addEventListener("click", (evento) => {
   formAdicionarTarefa.classList.add("hidden");
 });
 
-btnCancelTarefa.addEventListener("click", () => {
+btnCancelTarefa.addEventListener("click", limparFormulario);
+
+function limparFormulario() {
+  textarea.value = "";
   toggleFormAdicionarTarefa();
-});
+}
 
 function toggleFormAdicionarTarefa() {
   formAdicionarTarefa.classList.toggle("hidden");
@@ -108,5 +116,24 @@ function criarElementoTarefa(tarefa) {
   li.append(svg);
   li.append(paragraph);
   li.append(button);
+
+  li.onclick = () => {
+    document
+      .querySelectorAll(".app__section-task-list-item-active")
+      .forEach((tarefaAtiva) => {
+        tarefaAtiva.classList.remove("app__section-task-list-item-active");
+      });
+
+    if (tarefaSelecionada === tarefa) {
+      paragraphTarefaEmAndamento.textContent = "";
+      tarefaSelecionada = null;
+      return;
+    }
+
+    tarefaSelecionada = tarefa;
+    paragraphTarefaEmAndamento.textContent = tarefa.descricao;
+    li.classList.add("app__section-task-list-item-active");
+  };
+
   return li;
 }
