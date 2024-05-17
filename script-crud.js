@@ -49,6 +49,7 @@ const tarefasModule = function () {
 
 const tarefas = tarefasModule();
 let tarefaSelecionada = null;
+let liTarefaSelecionada = null;
 
 document.addEventListener("DOMContentLoaded", () => {
   tarefas.carregarTarefas();
@@ -72,6 +73,23 @@ btnConfirmTarefa.addEventListener("click", (evento) => {
 });
 
 btnCancelTarefa.addEventListener("click", limparFormulario);
+
+document.addEventListener("FocoFinalizado", () => {
+  if (tarefaSelecionada && liTarefaSelecionada) {
+    liTarefaSelecionada.classList.remove("app__section-task-list-item-active");
+    liTarefaSelecionada.classList.add("app__section-task-list-item-complete");
+    liTarefaSelecionada
+      .querySelector(".app_button-edit")
+      .setAttribute("disabled", "true");
+    removerTarefaEmAndamento();
+  }
+});
+
+function removerTarefaEmAndamento() {
+  paragraphTarefaEmAndamento.textContent = "";
+  tarefaSelecionada = null;
+  liTarefaSelecionada = null;
+}
 
 function limparFormulario() {
   textarea.value = "";
@@ -125,12 +143,12 @@ function criarElementoTarefa(tarefa) {
       });
 
     if (tarefaSelecionada === tarefa) {
-      paragraphTarefaEmAndamento.textContent = "";
-      tarefaSelecionada = null;
+      removerTarefaEmAndamento();
       return;
     }
 
     tarefaSelecionada = tarefa;
+    liTarefaSelecionada = li;
     paragraphTarefaEmAndamento.textContent = tarefa.descricao;
     li.classList.add("app__section-task-list-item-active");
   };

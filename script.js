@@ -18,7 +18,7 @@ const audioPausar = new Audio("sons/pause.mp3");
 const audioAlert = new Audio("sons/beep.mp3");
 musica.loop = true;
 
-let tempoDecorridoEmSegundos = 1500;
+let tempoDecorridoEmSegundos = 5;
 let intervalId = null;
 
 // Contextos
