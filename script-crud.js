@@ -13,6 +13,10 @@ const tarefasModule = function () {
     return tarefas;
   }
 
+  function atualizarTarefas() {
+    localStorage.setItem("tarefas", JSON.stringify(tarefas));
+  }
+
   function mostrarTarefa(tarefa) {
     const liTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(liTarefa);
@@ -27,6 +31,7 @@ const tarefasModule = function () {
   return {
     carregarTarefas,
     obterTarefas,
+    atualizarTarefas,
     mostrarTarefa,
     listarTarefas,
   };
@@ -49,7 +54,7 @@ formAdicionarTarefa.addEventListener("submit", (evento) => {
     descricao: textarea.value,
   };
   tarefas.obterTarefas().push(tarefa);
-  localStorage.setItem("tarefas", JSON.stringify(tarefas.obterTarefas()));
+  tarefas.atualizarTarefas();
   tarefas.mostrarTarefa(tarefa);
   textarea.value = "";
   formAdicionarTarefa.classList.add("hidden");
@@ -73,6 +78,12 @@ function criarElementoTarefa(tarefa) {
 
   const button = document.createElement("button");
   button.classList.add("app_button-edit");
+  button.onclick = () => {
+    const novaDescricao = prompt("Qual é a nova descrição da tarefa?");
+    paragraph.textContent = novaDescricao;
+    tarefa.descricao = novaDescricao;
+    tarefas.atualizarTarefas();
+  };
 
   const img = document.createElement("img");
   img.setAttribute("src", "imagens/edit.png");
