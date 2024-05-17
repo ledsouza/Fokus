@@ -1,6 +1,12 @@
 const btnAdicionarTarefa = document.querySelector(".app__button--add-task");
 const formAdicionarTarefa = document.querySelector(".app__form-add-task");
 const ulTarefas = document.querySelector(".app__section-task-list");
+const btnConfirmTarefa = document.querySelector(
+  ".app__form-footer__button--confirm"
+);
+const btnCancelTarefa = document.querySelector(
+  ".app__form-footer__button--cancel"
+);
 
 const tarefasModule = function () {
   let tarefas = [];
@@ -44,10 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 btnAdicionarTarefa.addEventListener("click", () => {
-  formAdicionarTarefa.classList.toggle("hidden");
+  toggleFormAdicionarTarefa();
 });
 
-formAdicionarTarefa.addEventListener("submit", (evento) => {
+btnConfirmTarefa.addEventListener("click", (evento) => {
   evento.preventDefault();
   const textarea = document.querySelector(".app__form-textarea");
   const tarefa = {
@@ -59,6 +65,14 @@ formAdicionarTarefa.addEventListener("submit", (evento) => {
   textarea.value = "";
   formAdicionarTarefa.classList.add("hidden");
 });
+
+btnCancelTarefa.addEventListener("click", () => {
+  toggleFormAdicionarTarefa();
+});
+
+function toggleFormAdicionarTarefa() {
+  formAdicionarTarefa.classList.toggle("hidden");
+}
 
 function criarElementoTarefa(tarefa) {
   const li = document.createElement("li");
