@@ -36,6 +36,11 @@ const tarefasModule = function () {
     atualizarTarefas();
   }
 
+  function removerTodasTarefas() {
+    tarefas = [];
+    atualizarTarefas();
+  }
+
   function mostrarTarefa(tarefa) {
     const liTarefa = criarElementoTarefa(tarefa);
     ulTarefas.append(liTarefa);
@@ -52,6 +57,7 @@ const tarefasModule = function () {
     obterTarefas,
     atualizarTarefas,
     removerTarefasConcluidas,
+    removerTodasTarefas,
     mostrarTarefa,
     listarTarefas,
   };
@@ -97,13 +103,22 @@ document.addEventListener("FocoFinalizado", () => {
   }
 });
 
-btnRemoverTarefasConcluidas.addEventListener("click", () => {
-  const seletor = ".app__section-task-list-item-complete";
-  document.querySelectorAll(seletor).forEach((tarefaConcluida) => {
-    tarefaConcluida.remove();
+const removerTarefas = (removerConcluidas) => {
+  const seletor = removerConcluidas
+    ? ".app__section-task-list-item-complete"
+    : ".app__section-task-list-item";
+  document.querySelectorAll(seletor).forEach((tarefa) => {
+    tarefa.remove();
   });
-  tarefas.removerTarefasConcluidas();
-});
+  removerConcluidas
+    ? tarefas.removerTarefasConcluidas()
+    : tarefas.removerTodasTarefas();
+};
+
+btnRemoverTarefasConcluidas.addEventListener("click", () =>
+  removerTarefas(true)
+);
+btnRemoverTodasTarefas.addEventListener("click", () => removerTarefas(false));
 
 function removerTarefaEmAndamento() {
   paragraphTarefaEmAndamento.textContent = "";
