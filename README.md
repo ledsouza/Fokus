@@ -24,12 +24,16 @@ Este projeto é um Pomodoro Timer desenvolvido durante o curso de JavaScript da 
 3. **Sons de Notificação:**
    - Sons diferentes são reproduzidos para indicar o início e o fim de cada intervalo, assim como um alerta de fim do timer.
    - O usuário pode ativar ou desativar os sons.
+  
+4. **Lista de Tarefas**
+   - Opção de adicionar, remover e editar tarefas.
+   - Tarefas são finalizadas automaticamente ao fim do timer.
 
-4. **Interface Intuitiva:**
+6. **Interface Intuitiva:**
    - Design limpo e fácil de usar.
-   - Cores e elementos visuais que auxiliam na identificação do estado atual do timer.
+   - Cores e elementos visuais que auxiliam na identificação do estado atual do timer e tarefas.
 
-5. **Responsividade:**
+7. **Responsividade:**
    - A interface se adapta a diferentes tamanhos de tela, garantindo uma boa experiência em dispositivos móveis e desktops.
 
 <img width="1268" alt="image" src="https://github.com/ledsouza/Fokus/assets/56280624/8c78d044-c58d-45cd-a70a-e593e82a3098">
